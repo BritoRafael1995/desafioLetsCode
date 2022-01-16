@@ -28,8 +28,8 @@ namespace BACK.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("LetsCodeKanban"));
             services.AddControllers();
+            services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("LetsCodeKanban"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,8 +40,11 @@ namespace BACK.API
                 app.UseDeveloperExceptionPage();
             }
 
-            var context = app.ApplicationServices.GetService<Context>();
-            PopularCardsTeste(context);
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetService<Context>();
+                PopularCardsTeste(context);
+            }
 
             app.UseHttpsRedirection();
 
@@ -72,7 +75,6 @@ namespace BACK.API
                 Conteudo = "Este é um card pré-carregado"
             };
             context.Cards.Add(card2);
-
 
             context.SaveChanges();
         }
