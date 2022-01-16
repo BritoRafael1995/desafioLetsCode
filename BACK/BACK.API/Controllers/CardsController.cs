@@ -1,4 +1,7 @@
-﻿using BACK.Model.Models;
+﻿using BACK.Business.Implementation;
+using BACK.Business.Interface;
+using BACK.Model.Models;
+using BACK.Repository;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,11 +16,25 @@ namespace BACK.API.Controllers
     [ApiController]
     public class CardsController : ControllerBase
     {
+        private readonly ICardsBusiness _cardsBusiness;
+
+        public CardsController(Context context)
+        {
+            _cardsBusiness = new CardsBusiness(context);
+        }
+
         // GET: Cards
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                return Ok(_cardsBusiness.GetCards());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         // POST Cards

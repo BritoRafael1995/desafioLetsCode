@@ -1,19 +1,21 @@
-﻿using BACK.Model.Models;
+﻿using BACK.Business.Interface;
+using BACK.Model.Models;
+using BACK.Repository;
+using BACK.Repository.Implementation;
 using BACK.Repository.Interface;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BACK.Repository.Implementation
+namespace BACK.Business.Implementation
 {
-    public class CardsRepository : ICardsRepository
+    public class CardsBusiness : ICardsBusiness
     {
-        private readonly Context _context;
+        private readonly ICardsRepository _cardsRepository;
 
-        public CardsRepository(Context context)
+        public CardsBusiness(Context context)
         {
-            _context = context;
+            _cardsRepository = new CardsRepository(context);
         }
         public Card AddCard(Card card)
         {
@@ -27,9 +29,7 @@ namespace BACK.Repository.Implementation
 
         public List<Card> GetCards()
         {
-            var cards = _context.Cards.ToListAsync().Result;
-
-            return cards;
+            return _cardsRepository.GetCards();
         }
 
         public Card UpdateCard(Guid id, Card card)
