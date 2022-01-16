@@ -13,4 +13,9 @@
     <ProjectReference Include="..\BACK.Model\BACK.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interface\" />
+    <Folder Include="Implementation\" />
+  </ItemGroup>
+
 </Project>
