@@ -27,7 +27,11 @@ namespace BACK.Business.Implementation
 
         public List<Card> DeleteCard(Guid id)
         {
-            return _cardsRepository.DeleteCard(id);
+            var card = _cardsRepository.GetCardById(id);
+            if (card != null)
+                return _cardsRepository.DeleteCard(card);
+            else
+                throw new NullReferenceException("Card não encontrado");
         }
 
         public List<Card> GetCards()
@@ -37,9 +41,16 @@ namespace BACK.Business.Implementation
 
         public Card UpdateCard(Guid id, Card card)
         {
-            ValidarCard(card);
+            if (_cardsRepository.GetCardById(id) != null)
+            {
+                ValidarCard(card);
 
-            return _cardsRepository.UpdateCard(id, card);
+                return _cardsRepository.UpdateCard(id, card);
+            }
+            else
+            {
+                throw new NullReferenceException("Card não encontrado");
+            }
         }
 
         private void ValidarCard(Card card)

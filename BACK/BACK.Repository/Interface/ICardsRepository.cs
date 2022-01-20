@@ -8,8 +8,9 @@ namespace BACK.Repository.Interface
     public interface ICardsRepository
     {
         Card AddCard(Card card);
-        List<Card> DeleteCard(Guid id);
+        List<Card> DeleteCard(Card card);
         List<Card> GetCards();
+        Card GetCardById(Guid id);
         Card UpdateCard(Guid id, Card card);
     }
 }

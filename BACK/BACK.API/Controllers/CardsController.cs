@@ -69,7 +69,14 @@ namespace BACK.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(400, ex.Message);
+                switch (ex.GetType().Name)
+                {
+                    case "NullReferenceException":
+                        return StatusCode(404, ex.Message);
+                    default:
+                        return StatusCode(400, ex.Message);
+                }
+                
             }
 
         }
@@ -86,7 +93,13 @@ namespace BACK.API.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message);
+                switch (ex.GetType().Name)
+                {
+                    case "NullReferenceException":
+                        return StatusCode(404, ex.Message);
+                    default:
+                        return StatusCode(400, ex.Message);
+                }
             }
 
         }
