@@ -14,7 +14,10 @@
       "launchBrowser": true,
       "launchUrl": "cards",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "Login": "letscode",
+        "JWT": "grjiklwfdcgeijfacblçk925oyqirup5437u-24fewir4hrtoqwivfv40kys",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "Senha": "lets@123"
       }
     },
     "BACK.API": {
