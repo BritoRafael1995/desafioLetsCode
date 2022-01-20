@@ -2,6 +2,8 @@
 using BACK.Business.Interface;
 using BACK.Model.Models;
 using BACK.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace BACK.API.Controllers
 {
+    [Authorize("Bearer", AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("[controller]")]
     [ApiController]
     public class CardsController : ControllerBase
