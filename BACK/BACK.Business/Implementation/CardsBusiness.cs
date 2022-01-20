@@ -31,7 +31,7 @@ namespace BACK.Business.Implementation
             if (card != null)
                 return _cardsRepository.DeleteCard(card);
             else
-                throw new NullReferenceException("Card não encontrado");
+                throw new NullReferenceException();
         }
 
         public List<Card> GetCards()
@@ -49,18 +49,14 @@ namespace BACK.Business.Implementation
             }
             else
             {
-                throw new NullReferenceException("Card não encontrado");
+                throw new NullReferenceException();
             }
         }
 
         private void ValidarCard(Card card)
         {
-            if (string.IsNullOrEmpty(card.Titulo))
-                throw new Exception("O título do card deve estar preenchido");
-            else if (string.IsNullOrEmpty(card.Conteudo))
-                throw new Exception("O conteúdo do card deve estar preenchido");
-            else if (string.IsNullOrEmpty(card.Lista))
-                throw new Exception("A lista do card deve estar preenchida");
+            if (string.IsNullOrEmpty(card.Titulo) || string.IsNullOrEmpty(card.Lista) || string.IsNullOrEmpty(card.Conteudo))
+                throw new InvalidOperationException();
         }
     }
 }

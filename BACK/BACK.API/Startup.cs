@@ -18,6 +18,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using BACK.API.Filters;
 
 namespace BACK.API
 {
@@ -34,6 +35,10 @@ namespace BACK.API
         {
             services.AddControllers();
             services.AddCors();
+            services.AddMvc(options => {
+                options.Filters.Add(new ResultFilter());
+                options.Filters.Add(new ExceptionFilter());
+            });
             services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase("LetsCodeKanban"));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

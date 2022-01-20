@@ -24,7 +24,7 @@ namespace BACK.Repository.Implementation
                 return retorno.Entity;
             }
             
-            throw new Exception("Não foi possível adicionar o card");
+            throw new InvalidOperationException();
 
         }
 
@@ -37,7 +37,7 @@ namespace BACK.Repository.Implementation
                 _context.SaveChanges();
                 return GetCards();
             }
-            throw new Exception("Não foi possível remover o card");
+            throw new InvalidOperationException();
         }
 
         public List<Card> GetCards()
@@ -62,7 +62,7 @@ namespace BACK.Repository.Implementation
                 _context.SaveChanges();
                 return result.Entity;
             }
-            throw new Exception("Não foi possível atualizar o card");
+            throw new InvalidOperationException();
         }
     }
 }

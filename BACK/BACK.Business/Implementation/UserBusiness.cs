@@ -22,7 +22,7 @@ namespace BACK.Business.Implementation
             if (login == userInfo.Login && senha == userInfo.Senha)
                 return BuildToken(userInfo);
             
-            throw new Exception("Usuário ou senha inválidos");
+            throw new UnauthorizedAccessException();
         }
 
         private UserToken BuildToken(User userInfo)

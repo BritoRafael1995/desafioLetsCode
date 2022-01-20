@@ -24,15 +24,8 @@ namespace BACK.API.Controllers
         [HttpPost]
         public ActionResult Login([FromBody] User userInfo)
         {
-            try
-            {
                 var result = _usersBusiness.Login(userInfo);
                 return Ok(result.Token);
-            }
-            catch(Exception ex)
-            {
-                return StatusCode(401, ex);
-            }
         }
     }
 }

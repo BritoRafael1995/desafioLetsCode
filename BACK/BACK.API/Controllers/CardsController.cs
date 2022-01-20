@@ -30,30 +30,16 @@ namespace BACK.API.Controllers
         [HttpGet]
         public ActionResult Get()
         {
-            try
-            {
                 return Ok(_cardsBusiness.GetCards());
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
         }
 
         // POST Cards
         [HttpPost]
         public ActionResult Post([FromBody] Card card)
         {
-            try
-            {
                 var createdCard = _cardsBusiness.AddCard(card);
 
                 return StatusCode(201, createdCard);
-            }
-            catch(Exception ex)
-            {
-                return StatusCode(400, ex.Message);
-            }
             
         }
 
@@ -61,23 +47,9 @@ namespace BACK.API.Controllers
         [HttpPut("{id}")]
         public ActionResult Put(Guid id, [FromBody] Card card)
         {
-            try
-            {
                 var updatedCard = _cardsBusiness.UpdateCard(id, card);
 
                 return Ok(updatedCard);
-            }
-            catch (Exception ex)
-            {
-                switch (ex.GetType().Name)
-                {
-                    case "NullReferenceException":
-                        return StatusCode(404, ex.Message);
-                    default:
-                        return StatusCode(400, ex.Message);
-                }
-                
-            }
 
         }
 
@@ -85,22 +57,9 @@ namespace BACK.API.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(Guid id)
         {
-            try
-            {
                 var cards = _cardsBusiness.DeleteCard(id);
 
                 return Ok(cards);
-            }
-            catch (Exception ex)
-            {
-                switch (ex.GetType().Name)
-                {
-                    case "NullReferenceException":
-                        return StatusCode(404, ex.Message);
-                    default:
-                        return StatusCode(400, ex.Message);
-                }
-            }
 
         }
     }
