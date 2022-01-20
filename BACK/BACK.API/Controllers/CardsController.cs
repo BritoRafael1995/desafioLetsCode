@@ -42,20 +42,53 @@ namespace BACK.API.Controllers
 
         // POST Cards
         [HttpPost]
-        public void Post([FromBody] Card card)
+        public ActionResult Post([FromBody] Card card)
         {
+            try
+            {
+                var createdCard = _cardsBusiness.AddCard(card);
+
+                return StatusCode(201, createdCard);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+            
         }
 
         // PUT Cards/5
         [HttpPut("{id}")]
-        public void Put(Guid id, [FromBody] Card card)
+        public ActionResult Put(Guid id, [FromBody] Card card)
         {
+            try
+            {
+                var updatedCard = _cardsBusiness.UpdateCard(id, card);
+
+                return Ok(updatedCard);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(400, ex.Message);
+            }
+
         }
 
         // DELETE Cards/5
         [HttpDelete("{id}")]
-        public void Delete(Guid id)
+        public ActionResult Delete(Guid id)
         {
+            try
+            {
+                var cards = _cardsBusiness.DeleteCard(id);
+
+                return Ok(cards);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
         }
     }
 }

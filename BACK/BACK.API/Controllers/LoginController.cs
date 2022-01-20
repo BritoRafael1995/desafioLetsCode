@@ -22,12 +22,12 @@ namespace BACK.API.Controllers
             _usersBusiness = new UserBusiness();
         }
         [HttpPost]
-        public ActionResult<string> Login([FromBody] User userInfo)
+        public ActionResult Login([FromBody] User userInfo)
         {
             try
             {
                 var result = _usersBusiness.Login(userInfo);
-                return result.Token;
+                return Ok(result.Token);
             }
             catch(Exception ex)
             {

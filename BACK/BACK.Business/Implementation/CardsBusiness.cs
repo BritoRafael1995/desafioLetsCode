@@ -19,12 +19,15 @@ namespace BACK.Business.Implementation
         }
         public Card AddCard(Card card)
         {
-            throw new NotImplementedException();
+            ValidarCard(card);
+
+            card.Id = Guid.NewGuid();
+            return _cardsRepository.AddCard(card);
         }
 
         public List<Card> DeleteCard(Guid id)
         {
-            throw new NotImplementedException();
+            return _cardsRepository.DeleteCard(id);
         }
 
         public List<Card> GetCards()
@@ -34,7 +37,19 @@ namespace BACK.Business.Implementation
 
         public Card UpdateCard(Guid id, Card card)
         {
-            throw new NotImplementedException();
+            ValidarCard(card);
+
+            return _cardsRepository.UpdateCard(id, card);
+        }
+
+        private void ValidarCard(Card card)
+        {
+            if (string.IsNullOrEmpty(card.Titulo))
+                throw new Exception("O título do card deve estar preenchido");
+            else if (string.IsNullOrEmpty(card.Conteudo))
+                throw new Exception("O conteúdo do card deve estar preenchido");
+            else if (string.IsNullOrEmpty(card.Lista))
+                throw new Exception("A lista do card deve estar preenchida");
         }
     }
 }
